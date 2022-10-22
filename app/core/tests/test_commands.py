@@ -16,7 +16,6 @@ class CommandTests(SimpleTestCase):
         """Test waiting for database if database ready."""
         patched_check.return_value = True
         call_command('wait_for_db')
-        self.assertEqual(patched_check.call_count, 1)
         patched_check.assert_called_once_with(databases=['default'])
 
     @patch('time.sleep')
