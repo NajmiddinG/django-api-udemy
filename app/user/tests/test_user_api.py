@@ -8,6 +8,7 @@ from rest_framework import status
 
 CREATE_USER_URL = reverse('user:create')
 
+
 def create_user(**params):
     return get_user_model().objects.create_user(**params)
 
@@ -31,8 +32,8 @@ class PublicUserApiTests(TestCase):
     def test_user_with_email_exists_error(self):
         payload = {
             'email': 'test@example.com',
-              'password': 'testpass123',
-              'name': 'Test Name',
+            'password': 'testpass123',
+            'name': 'Test Name',
         }
         create_user(**payload)
         res = self.client.post(CREATE_USER_URL, payload)
