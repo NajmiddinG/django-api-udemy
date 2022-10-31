@@ -87,7 +87,7 @@ class PrivateRecipeTests(TestCase):
         serializer = RecipeDetailSerializer(recipe)
         self.assertEqual(res.data, serializer.data)
 
-    def title_create_recipe(self):
+    def test_create_recipe(self):
         payload = {
             'title': 'Sample recipe',
             'time_minutes': 30,
@@ -101,7 +101,7 @@ class PrivateRecipeTests(TestCase):
             self.assertEqual(getattr(recipe, k), v)
         self.assertEqual(recipe.user, self.user)
 
-    def test_partical_update(self):
+    def test_partial_update(self):
         original_link = 'https://example.com/recipe.pdf'
         recipe = create_recipe(
             user=self.user,
