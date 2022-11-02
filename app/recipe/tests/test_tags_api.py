@@ -19,7 +19,7 @@ def create_user(email='user@example.com', password='testpass123'):
 
 class PublicTestsAPiTests(TestCase):
     def setUp(self):
-        self.client = APIClient
+        self.client = APIClient()
 
     def test_auth_required(self):
         res = self.client.get(TAGS_URL)
@@ -27,7 +27,7 @@ class PublicTestsAPiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateTestsAPiTests(TestCase):
+class PrivateTagsApiTests(TestCase):
     def setUp(self):
         self.user = create_user()
         self.client = APIClient
@@ -46,8 +46,8 @@ class PrivateTestsAPiTests(TestCase):
 
     def test_tags_limited_to_user(self):
         user2 = create_user(email='user2@example.com')
-        Tag.objects.create(user=user2, name='Fruty')
-        tag = Tag.objects.create(user=self.user, name='Comport food')
+        Tag.objects.create(user=user2, name='Fruity')
+        tag = Tag.objects.create(user=self.user, name='Comfort Food')
 
         res = self.client.get(TAGS_URL)
 

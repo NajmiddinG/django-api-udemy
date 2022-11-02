@@ -48,10 +48,10 @@ class PublicRecipeApiTests(TestCase):
         self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
 
 
-class PrivateRecipeTests(TestCase):
+class PrivateRecipeApiTests(TestCase):
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user(email='test@example.com', password='test123')
+        self.user = create_user(email='user@example.com', password='test123')
         self.client.force_authenticate(self.user)
 
     def test_retrive_recipes(self):
@@ -66,8 +66,7 @@ class PrivateRecipeTests(TestCase):
         self.assertEqual(res.data, serializer.data)
 
     def test_recipe_list_limited_to_user(self):
-        other_user = create_user(
-            email='other@example.com', password='pasword123')
+        other_user = create_user(email='other@example.com', password='pasword123')
         create_recipe(user=other_user)
         create_recipe(user=self.user)
 
@@ -124,7 +123,7 @@ class PrivateRecipeTests(TestCase):
             user=self.user,
             title="Sample recipe title",
             link='https://example.com/recipe.pdf',
-            description='Sample recipe description'
+            description='Sample recipe description.',
         )
         payload = {
             'title': 'New recipe title',
