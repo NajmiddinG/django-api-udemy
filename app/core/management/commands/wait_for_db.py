@@ -12,7 +12,7 @@ class Command(BaseCommand):
     """Django command to wait for database."""
     def handle(self, *args, **option):
         """Entrypoint for command."""
-        self.stdout.write('Waiting for database...')
+        self.stdout.write('\nWaiting for database...')
         db_up = False
         while not db_up:
             try:
@@ -21,4 +21,4 @@ class Command(BaseCommand):
             except (PsyCopg2opError, OperationalError):
                 self.stdout.write('Database unavilable, waiting 1 second...')
                 time.sleep(1)
-        self.stdout.write(self.style.SUCCESS('Database available!'))
+        self.stdout.write(self.style.SUCCESS('Database available 🥳!'))
